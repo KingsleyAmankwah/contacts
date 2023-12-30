@@ -1,6 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
-const ErrorHandler = (err: any, req: Request, res: Response) => {
+const ErrorHandler = (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const status = err.statusCode || 500;
   const message = err.message || "Something went wrong";
   const stack = process.env.NODE_ENV === "production" ? "🥞" : err.stack;
