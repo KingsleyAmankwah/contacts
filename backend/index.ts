@@ -9,15 +9,15 @@ const port = process.env.PORT;
 
 const app = express();
 
-app
-  .use(express.json())
-  .use(express.urlencoded({ extended: true }))
-  .use(router);
+app.use(express.json()).use(express.urlencoded({ extended: true }));
 
 app.use(ErrorHandler);
+
 app.get("/", (req, res) => {
   res.send("Hello World! It's working🚀🔥🚀🔥🚀🔥🚀🔥🚀🔥");
 });
+
+app.use(router);
 
 app.listen(port, () => {
   connectDB();
