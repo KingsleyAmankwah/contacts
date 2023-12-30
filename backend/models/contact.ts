@@ -1,5 +1,5 @@
 import { Schema, Types, model } from "mongoose";
-// import { getRandomColorCode } from "../utils";
+import { getRandomColorCode } from "../utils";
 
 const ContactSchema = new Schema(
   {
@@ -71,10 +71,10 @@ const ContactSchema = new Schema(
       type: String,
       default: null,
     },
-    // colorCode: {
-    //   type: String,
-    //   default: getRandomColorCode,
-    // },
+    colorCode: {
+      type: String,
+      default: getRandomColorCode,
+    },
     isFavourite: {
       type: Boolean,
       default: false,
