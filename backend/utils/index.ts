@@ -27,3 +27,35 @@ export const generateJwtToken = (payload: string | object | Buffer) => {
     expiresIn: process.env.JWT_EXPIRES,
   });
 };
+
+const colors = [
+  "#EF4770",
+  "#6F6F6F",
+  "#DCB604",
+  "#199393",
+  "#029ACD",
+  "#11C1DA",
+  "#3B8FFC",
+  "#18C6A0",
+  "#B387FF",
+  "#F75334",
+  "#805AD4",
+  "#E38072",
+  "#3D3029",
+  "#F3D39B",
+  "#51CE71",
+  "#273A33",
+  "#743966",
+  "#DAA3F5",
+  "#B7EF8F",
+  "#3C804F",
+  "#D17B56",
+  "#673FA2",
+  "#D4595B",
+  "#48ABC7",
+];
+
+export const getRandomColorCode = () => {
+  let index = Math.floor(Math.random() * colors.length);
+  return colors[index];
+};
