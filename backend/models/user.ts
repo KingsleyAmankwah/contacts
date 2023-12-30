@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-// import { getRandomColorCode } from "../utils";
+import { getRandomColorCode } from "../utils";
 
 const UserSchema = new Schema(
   {
@@ -19,10 +19,10 @@ const UserSchema = new Schema(
       type: String,
       required: [true, "Please add password"],
     },
-    // colorCode: {
-    //   type: String,
-    //   default: getRandomColorCode,
-    // },
+    colorCode: {
+      type: String,
+      default: getRandomColorCode,
+    },
   },
   {
     timestamps: true,
