@@ -3,12 +3,17 @@ import dotenv from "dotenv";
 import connectDB from "./database/config";
 import router from "./routes";
 import ErrorHandler from "./middleware/errorHandler";
+import cors from "cors";
 
 dotenv.config();
 const port = process.env.PORT;
 const app = express();
 
-app.use(express.json()).use(express.urlencoded({ extended: true }));
+app
+  .use(cors)
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
   res.send("Hello World! It's working🚀🔥🚀🔥🚀🔥🚀🔥🚀🔥");
 });
