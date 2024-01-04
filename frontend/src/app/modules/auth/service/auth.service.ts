@@ -3,7 +3,7 @@ import { cookie } from '../../../core/utils';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
-import { IUser, SignInData, SignUpData, SignUpResponse } from '../Interface';
+import { IUser, SignInData, SignUpData, userResponse } from '../Interface';
 import { USER_URL } from '../../../core/constants/apiEndpoints';
 import { Observable, tap } from 'rxjs';
 
@@ -33,50 +33,39 @@ export class AuthService {
     this.setUser(jwtDecode(token));
 
     // Navigate to the contact list page.
-    this.router.navigateByUrl('/contacts', { replaceUrl: true });
+    this.router.navigateByUrl('/contact/list', { replaceUrl: true });
   }
 
-  // Method to handle sign in.
-  signIn(data: SignInData) {
-    // Post the sign-in data to the server.
-    this.http
-      .post<{ message: string; data: { token: string } }>(
-        `${USER_URL}/sign-in`,
-        data
-      )
-      .subscribe(({ data: { token } }) => {
-        // Handle the authentication response with the received token.
-        this.handleAuthResponse(token);
-      });
-  }
-
-  // Method to handle sign up.
-  // signUp(data: SignUpData) {
-  //   // Post the sign-up data to the server.
-  //   this.http
-  //     .post<{ message: string; data: { token: string } }>(
-  //       `${USER_URL}/sign-up`,
-  //       data
-  //     )
-  //     .subscribe(({ data: { token } }) => {
-  //       // Handle the authentication response with the received token.
-  //       this.handleAuthResponse(token);
-  //     });
-  // }
-
-  // signUp(userData: SignUpData): Observable<SignUpResponse> {
-  //  return this.http
-  //     .post<SignUpResponse>(`${USER_URL}/sign-up`, userData)
-  //     .subscribe(({ data: { token } }) => {
-  //       this.handleAuthResponse(token);
-  //     });
-  // }
-
-  signUp(userData: SignUpData): Observable<SignUpResponse> {
-    return this.http.post<SignUpResponse>(`${USER_URL}/sign-up`, userData).pipe(
-      tap(({ data: { token } }) => {
-        this.handleAuthResponse(token);
+  signUp(userData: SignUpData): Observable<userResponse> {
+    return this.http.post<userResponse>(`${USER_URL}/sign-up`, userData).pipe(
+      tap({
+        next: ({ data: { token } }) => {
+          this.handleAuthResponse(token);
+        },
+        error: (error) => {
+          // Handle error scenario here if needed.
+          console.error('Error during sign up:', error);
+        },
       })
     );
+  }
+  signIn(userData: SignInData): Observable<userResponse> {
+    return this.http.post<userResponse>(`${USER_URL}/sign-in`, userData).pipe(
+      tap({
+        next: ({ data: { token } }) => {
+          this.handleAuthResponse(token);
+        },
+        error: (error) => {
+          // Handle error scenario here if needed.
+          console.error('Error during sign up:', error);
+        },
+      })
+    );
+  }
+
+  onLogout() {
+    this.user = null;
+    cookie.remove('auth_token');
+    this.router.navigateByUrl('/auth/sign-in');
   }
 }
