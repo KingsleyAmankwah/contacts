@@ -10,7 +10,7 @@ export const ContactRoutes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'contacts',
+        path: 'list',
         component: AllContactsComponent,
         title: 'All Contact',
       },
