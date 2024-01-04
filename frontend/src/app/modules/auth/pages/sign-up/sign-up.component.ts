@@ -51,10 +51,13 @@ export class SignUpComponent {
       // this.authService.signUp(signUpData)
       this.authService.signUp(signUpData).subscribe({
         next: (response) => {
+          this.isLoading = false;
           console.log(response);
           this.router.navigate(['/contacts']);
         },
         error: (error) => {
+          this.isLoading = false;
+          // this.registerForm.reset();
           this.errorMessage = error;
           this.isLoading = false;
         },
