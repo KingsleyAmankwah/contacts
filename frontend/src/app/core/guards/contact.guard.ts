@@ -1,15 +1,23 @@
-import { inject } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 import { cookie } from '../utils';
-import { Router } from '@angular/router';
 
-export function ContactGuard() {
-  let route = inject(Router);
+@Injectable({
+  providedIn: 'root',
+})
+export class ContactGuard implements CanActivate {
+  constructor(private router: Router) {}
 
-  let authToken = cookie.get('auth_token');
+  canActivate(): boolean {
+    let authToken = cookie.get('auth_token');
 
-  if (authToken) {
-    return route.navigate(['/contacts']);
-  } else {
-    return route.navigate(['/sign-in']);
+    if (authToken) {
+      // User is authenticated, allow access to route
+      return true;
+    } else {
+      // No user token found, redirect to sign-in
+      this.router.navigate(['/auth/sign-in']);
+      return false;
+    }
   }
 }
