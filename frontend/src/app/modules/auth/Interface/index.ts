@@ -9,3 +9,18 @@ export interface SignInData {
   email: string;
   password: string;
 }
+
+// Define the IUser type which will be used to type the user data throughout the AuthService.
+export interface IUser {
+  id: number;
+  email: string;
+  name: string;
+}
+
+export interface SignUpResponse {
+  sucess: boolean;
+  message: string;
+  data: {
+    token: string;
+  };
+}
