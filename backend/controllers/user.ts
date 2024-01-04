@@ -52,12 +52,12 @@ const signIn = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    return CustomError(400, "Invalid credentials.");
+    throw CustomError(400, "Invalid credentials.");
   }
 
   const passwordIsCorrect = await ComparePassword(password, user.password);
   if (!passwordIsCorrect) {
-    return CustomError(400, "Invalid Credentials");
+    throw CustomError(400, "Invalid Credentials");
   }
 
   const token = generateJwtToken({
