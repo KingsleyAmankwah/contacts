@@ -21,7 +21,11 @@ export class SignInComponent {
   errorMessage = '';
   isLoading = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -38,7 +42,19 @@ export class SignInComponent {
         password: this.loginForm.value.password,
       };
 
-      // this.authService.signIn(signInData).subscribe();
+      this.authService.signIn(signInData).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          console.log(response);
+          this.router.navigate(['/contact/list']);
+        },
+        error: (error) => {
+          this.errorMessage = error;
+          this.isLoading = false;
+          console.error('Sign up error:', error);
+          // Optionally reset form or handle error specific UI changes here.
+        },
+      });
     }
   }
 }

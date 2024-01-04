@@ -17,7 +17,7 @@ export interface IUser {
   name: string;
 }
 
-export interface SignUpResponse {
+export interface userResponse {
   sucess: boolean;
   message: string;
   data: {
