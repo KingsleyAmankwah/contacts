@@ -42,24 +42,23 @@ export class SignUpComponent {
       this.isLoading = true;
 
       const signUpData: SignUpData = {
-        firstName: this.registerForm.value.name,
-        lastName: this.registerForm.value.name,
+        firstName: this.registerForm.value.firstName,
+        lastName: this.registerForm.value.lastName,
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
       };
 
-      // this.authService.signUp(signUpData)
       this.authService.signUp(signUpData).subscribe({
         next: (response) => {
           this.isLoading = false;
           console.log(response);
-          this.router.navigate(['/contacts']);
+          this.router.navigate(['/contact/list']);
         },
         error: (error) => {
-          this.isLoading = false;
-          // this.registerForm.reset();
           this.errorMessage = error;
           this.isLoading = false;
+          console.error('Sign up error:', error);
+          // Optionally reset form or handle error specific UI changes here.
         },
       });
     }
