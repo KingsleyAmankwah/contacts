@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +8,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { SignInData } from '../../Interface';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-sign-in',
   standalone: true,
@@ -26,6 +26,8 @@ export class SignInComponent {
     private authService: AuthService,
     private router: Router
   ) {}
+
+  toast = inject(ToastrService);
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -46,12 +48,14 @@ export class SignInComponent {
         next: (response) => {
           this.isLoading = false;
           console.log(response);
+          this.toast.success(response.message, 'Success');
           this.router.navigate(['/contact/list']);
         },
         error: (error) => {
           this.errorMessage = error;
           this.isLoading = false;
-          console.error('Sign up error:', error);
+          // console.error('Sign up error:', error);
+          this.toast.error(error.error.message, 'Error');
           // Optionally reset form or handle error specific UI changes here.
         },
       });

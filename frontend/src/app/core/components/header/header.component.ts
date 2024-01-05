@@ -12,11 +12,24 @@ import { AuthService } from '../../../modules/auth/service/auth.service';
 export class HeaderComponent {
   authService = inject(AuthService);
 
+  // get initial() {
+  //   if (!this.authService.user) return '';
+  //   let [firstLetter, secondLetter = ''] =
+  //     this.authService.user.name.split(' ');
+  //   return `${firstLetter[0].toUpperCase()}${secondLetter[0].toUpperCase()}`.trim();
+  // }
+
   get initial() {
     if (!this.authService.user) return '';
     let [firstLetter, secondLetter = ''] =
       this.authService.user.name.split(' ');
-    return `${firstLetter[0].toUpperCase()}${secondLetter[0].toUpperCase()}`.trim();
+
+    firstLetter =
+      firstLetter && firstLetter[0] ? firstLetter[0].toUpperCase() : '';
+    secondLetter =
+      secondLetter && secondLetter[0] ? secondLetter[0].toUpperCase() : '';
+
+    return `${firstLetter}${secondLetter}`.trim();
   }
 
   handleLogOut() {

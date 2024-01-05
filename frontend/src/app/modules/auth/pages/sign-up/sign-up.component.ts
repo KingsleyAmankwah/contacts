@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +8,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { SignUpData } from '../../Interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -26,6 +27,8 @@ export class SignUpComponent {
     private authService: AuthService,
     private router: Router
   ) {}
+
+  toast = inject(ToastrService);
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -52,11 +55,14 @@ export class SignUpComponent {
         next: (response) => {
           this.isLoading = false;
           console.log(response);
+          this.toast.success(response.message, 'Success');
+
           this.router.navigate(['/contact/list']);
         },
         error: (error) => {
           this.errorMessage = error;
           this.isLoading = false;
+          this.toast.error(error.error.message, 'Error');
           console.error('Sign up error:', error);
           // Optionally reset form or handle error specific UI changes here.
         },
