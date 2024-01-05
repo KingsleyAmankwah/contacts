@@ -69,7 +69,7 @@ const signIn = asyncHandler(async (req, res) => {
   res.status(200).send({
     data: { token },
     success: true,
-    message: `Welcome back, ${user.name}!`,
+    message: `Welcome back, ${user.firstName}!`,
   });
 });
 
