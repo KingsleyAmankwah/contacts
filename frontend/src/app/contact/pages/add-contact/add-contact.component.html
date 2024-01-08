@@ -1,0 +1,28 @@
+<div class="sticky top-0 left-0 h-52 border-b border-b-gray-300 z-10 bg-white">
+  <div class="flex justify-between h-full">
+    <div class="flex items-center gap-7">
+      <div class="self-start mt-4">
+        <mat-icon class="text-2xl cursor-pointer" (click)="onClose.emit()"
+          >close</mat-icon
+        >
+      </div>
+      <div
+        class="relative flex justify-center items-center w-32 h-32 rounded-full"
+        [style]="{
+          backgroundColor: contactDetail.colorCode
+        }"
+      >
+        <img NgIf="isAddPage" src="assets/images/profile.png" />
+        <span NgIf="!isAddPage" class="text-4xl text-white"
+          >{{
+            contactDetail.firstName &&
+              contactDetail.firstName.charAt(0).toUpperCase()
+          }}{{
+            contactDetail.lastName &&
+              contactDetail.lastName.charAt(0).toUpperCase()
+          }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

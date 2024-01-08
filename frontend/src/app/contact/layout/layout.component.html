@@ -1,0 +1,15 @@
+<app-header (toggleSidebar)="onToggleSidebar()" />
+
+<div class="relative h-[calc(100%-64px)] overflow-x-hidden">
+  <app-sidebar
+    [class.expanded]="sidebarExpanded"
+    class="fixed h-[calc(100%-64px)] bottom-0 left-0 overflow-auto w-[280px] bg-white py-5 aria-[expanded=true]:translate-x-0 transition-transform duration-200"
+  />
+
+  <div
+    [class.content-expanded]="sidebarExpanded"
+    class="aria-[expanded=true]:translate-x-[280px] w-full aria-[expanded=true]:w-contact transition-transform duration-200 px-4 pb-4"
+  >
+    <router-outlet />
+  </div>
+</div>

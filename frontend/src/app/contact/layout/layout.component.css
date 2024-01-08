@@ -1,0 +1,8 @@
+/* in your CSS file */
+.expanded {
+  transform: translateX(-280px);
+}
+
+.content-expanded {
+  transform: translate(-0px); /* Adjust as needed based on your sidebar width */
+}
