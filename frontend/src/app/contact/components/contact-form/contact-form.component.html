@@ -1,0 +1,228 @@
+<div class="sticky top-0 left-0 h-52 border-b border-b-gray-300 bg-white">
+  <div class="flex justify-between w-full h-full">
+    <div class="flex items-center gap-7">
+      <div class="self-start mt-4">
+        <mat-icon class="text-2xl cursor-pointer" (click)="onClose.emit()"
+          >close</mat-icon
+        >
+      </div>
+      <div
+        class="relative flex justify-center items-center md:w-32 md:h-32 w-20 h-20 rounded-full"
+        [style]="{
+          backgroundColor: contactDetail.colorCode
+        }"
+      >
+        <img src="assets/images/profile.png" />
+      </div>
+    </div>
+    <div class="self-end justify-start w-[150px] pb-6" NgIf="!isReadOnly">
+      <button
+        class="bg-blue-400 text-white px-5 py-2 text-sm font-medium rounded-full"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+
+<form class="my-6 pl-6 md:w-[50%]">
+  <div class="flex items-start gap-3 md:gap-5 w-full">
+    <mat-icon class="text-gray justify-center items-center text-2xl"
+      >account_circle</mat-icon
+    >
+    <div class="flex flex-col gap-7 w-full">
+      <app-input
+        label="First Name"
+        name="firstName"
+        [control]="firstName"
+        [hasError]="isSubmitted && firstName.errors !== null"
+        [readOnly]="isReadOnly"
+        [errorMessage]="{
+          required: 'Please enter first name',
+          minlength: 'First name should contain atleast 3 characters',
+          pattern: 'First name should contain alphapets only'
+        }"
+      />
+
+      <app-input
+        label="Last Name"
+        name="lastName"
+        [control]="lastName"
+        [hasError]="isSubmitted && lastName.errors !== null"
+        [readOnly]="isReadOnly"
+        [errorMessage]="{
+          minlength: 'First name should contain atleast 3 characters',
+          pattern: 'Last name should contain alphapets only'
+        }"
+      />
+      <app-input
+        label="Nick Name"
+        name="nickName"
+        [control]="nickName"
+        [hasError]="isSubmitted && nickName.errors !== null"
+        [readOnly]="isReadOnly"
+        [errorMessage]="{
+          minlength: 'Nick name should contain atleast 3 characters',
+          pattern: 'Nick name should contain alphapets only'
+        }"
+      />
+    </div>
+  </div>
+
+  <div class="flex items-start gap-5 mt-5">
+    <!-- <i class="icon-office-building-outline text-gray text-2xl"></i> -->
+    <mat-icon class="text-gray justify-center items-center text-2xl"
+      >business</mat-icon
+    >
+    <div class="flex flex-col gap-4 w-full">
+      <app-input
+        label="Company"
+        name="company"
+        [control]="company"
+        [readOnly]="isReadOnly"
+      />
+      <app-input
+        label="Job Title"
+        name="jobTitle"
+        [control]="jobTitle"
+        [readOnly]="isReadOnly"
+      />
+      <app-input
+        label="Department"
+        name="department"
+        [control]="department"
+        [readOnly]="isReadOnly"
+      />
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <!-- <i class="icon-email-outline text-gray text-2xl"></i> -->
+    <mat-icon class="text-gray justify-center items-center text-2xl"
+      >email</mat-icon
+    >
+    <div class="flex flex-col gap-4 w-full">
+      <app-input
+        label="Email"
+        name="email"
+        [control]="email"
+        [hasError]="isSubmitted && email.errors !== null"
+        [readOnly]="isReadOnly"
+        [errorMessage]="{
+          email: 'Invalid email'
+        }"
+      />
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <!-- <i class="icon-phone-outline text-gray text-2xl"></i> -->
+    <mat-icon class="text-gray justify-center items-center text-2xl"
+      >phone</mat-icon
+    >
+    <div class="flex flex-col gap-4 w-full">
+      <app-input
+        label="Phone"
+        name="phone"
+        [control]="phone"
+        [hasError]="isSubmitted && phone.errors !== null"
+        [readOnly]="isReadOnly"
+        [errorMessage]="{
+          required: 'Please enter phone number',
+          pattern: 'Invalid phone number'
+        }"
+      />
+    </div>
+  </div>
+
+  <div class="flex items-start gap-5 mt-5">
+    <!-- <i class="icon-map-marker-outline text-gray text-2xl"></i> -->
+    <mat-icon class="text-gray justify-center items-center text-2xl"
+      >location_on</mat-icon
+    >
+    <div class="flex flex-col gap-4 w-full">
+      <app-input
+        label="Country"
+        name="country"
+        [control]="country"
+        [readOnly]="isReadOnly"
+      />
+      <app-input
+        label="Street address"
+        name="addressLine1"
+        [control]="addressLine1"
+        [readOnly]="isReadOnly"
+      />
+      <app-input
+        label="Street address line 2"
+        name="addressLine2"
+        [control]="addressLine2"
+        [readOnly]="isReadOnly"
+      />
+      <app-input label="State" name="state" [readOnly]="isReadOnly" />
+      <app-input label="City" name="city" [readOnly]="isReadOnly" />
+      <app-input
+        label="Pincode"
+        name="pincode"
+        [hasError]="isSubmitted && pincode.errors !== null"
+        [readOnly]="isReadOnly"
+        [errorMessage]="{
+          pattern: 'Invalid pincode'
+        }"
+      />
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <!-- <i class="icon-cake-variant-outline text-gray text-2xl"></i> -->
+    <mat-icon class="text-gray justify-center items-center text-2xl"
+      >cake</mat-icon
+    >
+    <div class="flex flex-col gap-4 w-full">
+      <app-input
+        label="Birthday"
+        name="birthday"
+        [control]="birthday"
+        [hasError]="isSubmitted && birthday.errors !== null"
+        [readOnly]="isReadOnly"
+        [errorMessage]="{
+          pattern: 'Invalid birthday date'
+        }"
+      />
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <!-- <i class="icon-link text-gray text-2xl"></i> -->
+    <mat-icon class="text-gray justify-center items-center text-2xl"
+      >link</mat-icon
+    >
+    <div class="flex flex-col gap-4 w-full">
+      <app-input
+        label="Website"
+        name="website"
+        [control]="website"
+        [hasError]="isSubmitted && website.errors !== null"
+        [readOnly]="isReadOnly"
+        [errorMessage]="{
+          pattern: 'Invalid website url'
+        }"
+      />
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <!-- <i class="icon-note-outline text-gray text-2xl"></i> -->
+    <mat-icon class="text-gray justify-center items-center text-2xl"
+      >note</mat-icon
+    >
+    <div class="flex flex-col gap-4 w-full">
+      <app-input
+        label="Notes"
+        name="notes"
+        [control]="notes"
+        [readOnly]="isReadOnly"
+      />
+    </div>
+  </div>
+</form>
