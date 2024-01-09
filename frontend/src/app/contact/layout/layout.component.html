@@ -1,10 +1,10 @@
 <app-header (toggleSidebar)="onToggleSidebar()" />
 
-<div class="relative h-[calc(100%-64px)] overflow-x-hidden">
+<div class="relative h-[calc(100%-64px)] overflow-hidden">
   <app-sidebar
     [class.expanded]="sidebarExpanded"
-    class="sidebar h-[calc(100%-80px)] overflow-auto w-[280px] bg-white py-5 transition-transform duration-200"
-  ></app-sidebar>
+    class="sidebar h-[calc(100%-64px)] w-[280px] bg-white py-5 transition-transform duration-200"
+  />
 
   <div
     [class.content-expanded]="sidebarExpanded"
