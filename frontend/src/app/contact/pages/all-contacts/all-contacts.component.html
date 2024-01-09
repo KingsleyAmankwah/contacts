@@ -1,5 +1,19 @@
-<div class="flex justify-center text-xl p-5 mt-8">
-  <ng-container>
-    
-  </ng-container>
+<div class="">
+  <div>
+    <app-contact-header />
+
+    <div class="relative">
+      <ng-container>
+        <div class="sticky p-3">
+          <span class="font-medium text-xs capitalize"
+            >Starred Contacts (0)</span
+          >
+        </div>
+
+        <div class="flex flex-col">
+          <app-contact-list />
+        </div>
+      </ng-container>
+    </div>
+  </div>
 </div>
