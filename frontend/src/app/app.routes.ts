@@ -15,4 +15,10 @@ export const AppRoutingModule: Routes = [
     loadChildren: () =>
       import('./contact/contact-routing.module').then((m) => m.ContactRoutes),
   },
+
+  {
+    path: '',
+    redirectTo: '/auth/sign-in',
+    pathMatch: 'full',
+  },
 ];
