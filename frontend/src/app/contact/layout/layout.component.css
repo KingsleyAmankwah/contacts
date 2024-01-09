@@ -1,8 +1,38 @@
-/* in your CSS file */
+.sidebar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  z-index: 1000;
+  height: calc(100% - 64px);
+  width: 280px;
+  transition: margin-left 0.3s ease;
+}
+
 .expanded {
-  transform: translateX(-280px);
+  margin-left: -280px;
+}
+
+.content {
+  transition: margin-left 0.3s ease;
+  margin-left: 0;
 }
 
 .content-expanded {
-  transform: translate(-0px); /* Adjust as needed based on your sidebar width */
+  margin-left: -280px;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+  }
+
+  .content {
+    padding-left: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-expanded {
+    margin-left: 0px;
+  }
 }
