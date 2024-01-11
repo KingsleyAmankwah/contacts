@@ -20,11 +20,24 @@ export class HeaderComponent {
     this.toggleSidebar.emit(); // Call this method when the menu icon is clicked
   }
 
+  // get initial() {
+  //   if (!this.authService.user) return '';
+  //   let [firstLetter, secondLetter = ''] =
+  //     this.authService.user.name.split(' ');
+  //   return `${firstLetter[0].toUpperCase()}${secondLetter[0].toUpperCase()}`.trim();
+  // }
+
   get initial() {
     if (!this.authService.user) return '';
     let [firstLetter, secondLetter = ''] =
       this.authService.user.name.split(' ');
-    return `${firstLetter[0].toUpperCase()}${secondLetter[0].toUpperCase()}`.trim();
+
+    firstLetter =
+      firstLetter && firstLetter[0] ? firstLetter[0].toUpperCase() : '';
+    secondLetter =
+      secondLetter && secondLetter[0] ? secondLetter[0].toUpperCase() : '';
+
+    return `${firstLetter}${secondLetter}`.trim();
   }
 
   get colorCode() {
