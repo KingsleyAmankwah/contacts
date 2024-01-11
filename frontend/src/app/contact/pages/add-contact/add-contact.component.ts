@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-contact',
   standalone: true,
-  imports: [MatIconModule, InputComponent, CommonModule, NgIf],
+  imports: [MatIconModule, InputComponent, NgIf],
   templateUrl: './add-contact.component.html',
   styleUrl: './add-contact.component.css',
 })
