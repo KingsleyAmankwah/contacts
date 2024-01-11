@@ -49,7 +49,7 @@ export class SignInComponent {
           this.isLoading = false;
           console.log(response);
           this.toast.success(response.message, 'Success');
-          this.router.navigate(['/contact/list']);
+          // this.router.navigate(['/contact/list']);
         },
         error: (error) => {
           this.errorMessage = error;

@@ -18,11 +18,9 @@ export interface userResponse {
   };
 }
 
-export interface IUser {
+export interface authenticatedUser {
   id: number;
   email: string;
   name: string;
   colorCode: string;
 }
-
-

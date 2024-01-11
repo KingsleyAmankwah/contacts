@@ -9,7 +9,6 @@ import { CONTACT_URL } from '../../core/constants/apiEndpoints';
 export class ContactService {
   http = inject(HttpClient);
 
-
   getContacts() {
     let params: any = {};
     // if (search) {
@@ -32,10 +31,10 @@ export class ContactService {
     }>(`${CONTACT_URL}/${contactId}/detail`);
   }
 
-  createContact(data: Partial<ContactDetail>) {
+  createContact(data: ContactDetail) {
     return this.http.post<{
       message: string;
-      data: { contact: Partial<ContactDetail> };
+      data: { contact: ContactDetail };
     }>(`${CONTACT_URL}/create`, data);
   }
 }
