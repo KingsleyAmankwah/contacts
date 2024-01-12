@@ -20,7 +20,7 @@ export class AddContactComponent {
   contactDetail = {} as ContactDetail;
   isSubmitted = false;
   isReadOnly = false;
-
+  isLoading = false;
   router = inject(Router);
   formBuilder = inject(FormBuilder);
   contactService = inject(ContactService);
@@ -144,19 +144,22 @@ export class AddContactComponent {
 
   saveContact() {
     if (this.form.valid) {
+      this.isLoading = true;
       const formData = this.form.value as ContactDetail;
 
       // Call your contactService to save the contact
       this.contactService.createContact(formData).subscribe(
         (response) => {
           // Handle the successful save here, if needed
-          console.log('Contact saved successfully', response);
+          // console.log('Contact saved successfully', response);
+          this.isLoading = false;
           this.router.navigateByUrl('/contact/list');
           // console.log(response);
           this.toast.success(response.message, 'Success');
         },
         (error) => {
           console.error('Error saving contact', error);
+          this.isLoading = false;
           this.toast.error(error.error.message, 'Error');
         }
       );

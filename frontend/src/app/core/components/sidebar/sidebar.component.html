@@ -1,24 +1,26 @@
 <button
-  class="group flex items-center gap-2 shadow-create rounded-full px-5 mb-5 ml-3 h-[48px] hover:shadow-create-hover transition-[box-shadow] duration-200"
+  class="group flex items-center gap-2 shadow-lg rounded-full px-5 mb-5 ml-3 h-[48px] hover:shadow-md transition-[box-shadow] duration-200"
   [routerLink]="'/contact/add'"
 >
-  <svg width="36" height="36" viewBox="0 0 36 36">
+  <!-- <svg width="36" height="36" viewBox="0 0 36 36">
     <path fill="#34A853" d="M16 16v14h4V20z"></path>
     <path fill="#4285F4" d="M30 16H20l-4 4h14z"></path>
     <path fill="#FBBC05" d="M6 16v4h10l4-4z"></path>
     <path fill="#EA4335" d="M20 16V6h-4v14z"></path>
     <path fill="none" d="M0 0h36v36H0z"></path>
-  </svg>
+  </svg> -->
+
+  <mat-icon class="text-xl w-12 h-12">add_outline</mat-icon>
 
   <span
-    class="text-dark-gray group-hover:text-blue font-medium text-sm transition-colors duration-200"
+    class="text-[#5f6368] group-hover:text-[#1973E8] font-medium text-sm transition-colors duration-200"
     >Create Contact</span
   >
 </button>
 
 <div class="flex flex-col mb-6">
   <button
-    class="flex items-center justify-between font-medium py-2 px-5 rounded-r-full [&:not(.active)]:text-dark-gray [&:not(.active)]:hover:bg-light-silver [&:is(.active)]:bg-sky-blue [&:is(.active)]:text-blue transition-colors duration-200"
+    class="flex items-center justify-between font-medium py-2 px-5 rounded-r-full [&:not(.active)]:text-[#5f6368] [&:not(.active)]:hover:bg-[#F1F3F4] [&:is(.active)]:bg-[#E8F0FE] [&:is(.active)]:text-[#1973E8] transition-colors duration-200"
     [routerLink]="'list'"
     [routerLinkActive]="'active'"
   >
@@ -31,7 +33,7 @@
     </div>
   </button>
   <button
-    class="flex items-center justify-between text-dark-gray font-medium py-2 px-5 rounded-r-full hover:bg-light-silver transition-colors duration-200"
+    class="flex items-center justify-between font-medium py-2 px-5 rounded-r-full [&:not(.active)]:text-[#5f6368] [&:not(.active)]:hover:bg-[#F1F3F4] [&:is(.active)]:bg-[#E8F0FE] [&:is(.active)]:text-[#1973E8] transition-colors duration-200"
     (click)="showBulkUploadPopup()"
   >
     <div class="flex items-center gap-4">
@@ -40,7 +42,7 @@
     </div>
   </button>
   <button
-    class="flex items-center justify-between font-medium py-2 px-5 rounded-r-full [&:not(.active)]:text-dark-gray [&:not(.active)]:hover:bg-light-silver [&:is(.active)]:bg-sky-blue [&:is(.active)]:text-blue transition-colors duration-200"
+    class="flex items-center justify-between font-medium py-2 px-5 rounded-r-full [&:not(.active)]:text-[#5f6368] [&:not(.active)]:hover:bg-[#F1F3F4] [&:is(.active)]:bg-[#E8F0FE] [&:is(.active)]:text-[#1973E8] transition-colors duration-200"
     [routerLink]="'trash'"
     [routerLinkActive]="'active'"
   >
@@ -58,15 +60,15 @@
 
     <mat-icon
       class="text-xl cursor-pointer hover:bg-light-silver rounded-full"
-       (click)="showLabelPopup()"
+      (click)="showLabelPopup()"
       >add</mat-icon
     >
   </div>
 
   <button
-    class="group flex items-center justify-between font-medium py-2 px-5 rounded-r-full [&:not(.active)]:text-dark-gray [&:not(.active)]:hover:bg-light-silver [&:is(.active)]:bg-sky-blue [&:is(.active)]:text-blue transition-colors duration-200"
+    class="group flex items-center justify-between font-medium py-2 px-5 rounded-r-full [&:not(.active)]:text-[#3c4043] [&:not(.active)]:hover:bg-[#F1F3F4] [&:is(.active)]:bg-[#E8F0FE] [&:is(.active)]:text-[#1973E8] transition-colors duration-200"
     [routerLinkActive]="'active'"
-    *ngFor="let label of labels; trackBy: handleTrackLabel"
+    *ngFor="let label of labelList; trackBy: TrackLabel"
     [routerLink]="['label', label._id]"
   >
     <div class="flex items-center gap-4">

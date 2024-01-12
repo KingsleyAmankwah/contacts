@@ -1,5 +1,89 @@
 <div
-  class="relative group grid grid-cols-[0.25fr_0.25fr_0.2fr_0.2fr_0.1fr] items-center text-sm py-2 [&:is([aria-selected='true'])]:bg-[#F2F2F2] [&:is([aria-selected='false'])]:hover:bg-[#F5F5F5] transition-colors duration-200 cursor-pointer before:hidden before:focus-within:block before:content-[''] before:absolute before:w-1 before:rounded-tr-md before:rounded-br-md before:bg-blue before:h-full"
+  class="relative group grid grid-cols-[0.25fr_0.25fr_0.2fr_0.2fr_0.1fr] items-center text-sm py-2 [&:is([aria-selected='true'])]:bg-[#F2F2F2] [&:is([aria-selected='false'])]:hover:bg-[#EBEBEB] transition-colors duration-200 cursor-pointer before:hidden before:focus-within:block before:content-[''] before:absolute before:w-1 before:rounded-tr-md before:rounded-br-md before:bg-[#1973E8] before:h-full"
+  NgFor="let contact of contacts; trackBy: handleTrackContact"
 >
-  <div class="relative flex items-center gap-5 px-3 h-full"></div>
+  <div class="relative flex items-center gap-5 px-3 h-full">
+    <div
+      class="group relative w-11 h-11 hover:bg-[#508EEB] group-[&:is([aria-selected='true'])]:hover:bg-[#E8F0FE] rounded-full"
+      (click)="$event.stopPropagation()"
+    >
+      <div
+        class="group-hover:hidden group-[&:is([aria-selected='true'])]:hidden flex items-center justify-center text-xl text-black font-medium w-full h-full rounded-full"
+      >
+        <!-- <span>
+          {{ contact.firstName && contact.firstName.charAt(0).toUpperCase()
+          }}{{
+            contact.lastName && contact.lastName.charAt(0).toUpperCase()
+          }}</span
+        > -->
+
+        <span> JD </span>
+      </div>
+      <div class="hidden group-hover:flex relative text-[#A3A3A3]">
+        <mat-icon
+          class="icon-dots-vertical cursor-pointer absolute -left-[14px] top-2 text-xl"
+          >more_vert</mat-icon
+        >
+
+        <mat-icon
+          class="icon-dots-vertical cursor-pointer absolute -left-[6px] top-2 text-xl"
+          >more_vert</mat-icon
+        >
+      </div>
+      <!-- <app-check-box
+        class="hidden group-hover:flex group-[&:is([aria-selected='true'])]:flex justify-center items-center absolute left-2.5 top-1/2 -translate-y-1/2 w-[20px] h-[20px]"
+        [checked]="selectedContactIds.has(contact._id)"
+        (onChange)="handleCheckBox($event, contact._id)"
+      /> -->
+
+      <input
+        class="hidden group-hover:flex group-[&:is([aria-selected='true'])]:flex justify-center items-center absolute left-2.5 top-1/2 -translate-y-1/2 w-[20px] h-[20px]"
+        type="checkbox"
+        name=""
+        id=""
+      />
+    </div>
+    <span class="first-letter:capitalize">John Doe</span>
+  </div>
+  <div class="px-3 py-2">
+    <span>jdatgmail.com </span>
+  </div>
+  <div class="px-3 py-2">
+    <span NgIf="contact.phone">020234537878</span>
+  </div>
+  <div class="px-3 py-2">
+    <span NgIf="!isTrash">
+      <span class="hidden md:inline-block"> AWS , </span>
+      <ng-container NgIf="contact.company && contact.jobTitle"> </ng-container>
+      <ng-container NgIf="contact.jobTitle"> SWE </ng-container>
+    </span>
+    <span NgIf="isTrash">
+      <!-- {{ formatTime(contact.updatedAt) }} -->
+    </span>
+  </div>
+  <div class="pr-3">
+    <div
+      class="hidden group-hover:flex items-center justify-end gap-3 text-xl text-[#5f6368]"
+    >
+      <ng-container NgIf="!isTrash">
+        <!-- <i
+          [class]="{
+            'icon-star': isFavourite,
+            'text-light-blue': isFavourite,
+            'icon-star-outline': !isFavourite
+          }"
+        ></i> -->
+        <mat-icon>star_outline</mat-icon>
+        <mat-icon>edit_outlined</mat-icon>
+        <mat-icon>delete_outline</mat-icon>
+      </ng-container>
+      <!-- <ng-container NgIf="isTrash">
+        <button
+          class="text-light-blue text-sm font-medium bg-sky-blue px-2 py-1 rounded-sm"
+        >
+          Recover
+        </button>
+      </ng-container> -->
+    </div>
+  </div>
 </div>
