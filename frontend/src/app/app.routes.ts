@@ -8,6 +8,7 @@ export const AppRoutingModule: Routes = [
   {
     path: '',
     component: HomeComponent,
+    title: 'Contacts',
   },
   {
     path: 'auth',
