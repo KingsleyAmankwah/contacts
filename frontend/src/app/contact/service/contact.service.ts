@@ -10,6 +10,7 @@ import { Observable, map } from 'rxjs';
 export class ContactService {
   labels: Label[] = [];
   totalContacts = 0;
+
   http = inject(HttpClient);
 
   getContacts() {
@@ -26,17 +27,6 @@ export class ContactService {
       data: { contact: ContactDetail };
     }>(`${CONTACT_URL}/${contactId}/detail`);
   }
-
-  // getContactCount() {
-  //   this.http
-  //     .get<{
-  //       message: string;
-  //       data: { count: number };
-  //     }>(`${CONTACT_URL}/count`)
-  //     .subscribe(({ data: { count } }) => {
-  //       this.totalContacts = count;
-  //     });
-  // }
 
   getContactCount(): Observable<number> {
     return this.http
@@ -58,26 +48,37 @@ export class ContactService {
     );
   }
 
-  getAllLabels() {
-    this.http
-      .get<{ message: string; data: { labels: Label[] } }>(`${LABEL_URL}/all`)
-      .subscribe(({ data: { labels } }) => {
-        this.labels = labels;
-      });
-  }
+  // getAllLabels() {
+  //   this.http
+  //     .get<{ message: string; data: { labels: Label[] } }>(`${LABEL_URL}/all`)
+  //     .subscribe(({ data: { labels } }) => {
+  //       this.labels = labels;
+  //     });
+  // }
 
-  // createLabel(
-  //   data: Label
-  // ): Observable<{ message: string; data: { label: Label } }> {
-  //   return this.http.post<{ message: string; data: { label: Label } }>(
-  //     `${LABEL_URL}/create`,
-  //     data
+  // getLabels(): Observable<{ message: string; data: { labels: Label[] } }> {
+  //   return this.http.get<{ message: string; data: { labels: Label[] } }>(
+  //     `${LABEL_URL}/all`
   //   );
   // }
 
-  getLabels(): Observable<{ message: string; data: { labels: Label[] } }> {
-    return this.http.get<{ message: string; data: { labels: Label[] } }>(
-      `${LABEL_URL}/all`
+  removeContact(contactId: string[]) {
+    return this.http.delete<{ message: string }>(`${CONTACT_URL}/remove`, {
+      body: contactId,
+    });
+  }
+
+  // updateContactById(contactId: string, data: ContactDetail) {
+  //   return this.http.put(`${CONTACT_URL}/${contactId}/update`, data);
+  // }
+
+  updateContactById(
+    contactId: string,
+    data: ContactDetail
+  ): Observable<{ message: string }> {
+    return this.http.put<{ message: string }>(
+      `${CONTACT_URL}/${contactId}/update`,
+      data
     );
   }
 }
