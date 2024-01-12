@@ -32,7 +32,7 @@ const verifyToken = asyncHandler(async (req, res, next) => {
     next();
   } catch (error) {
     console.error("Token verification error:", error);
-    res.status(401).json({ message: "Unauthorized: Invalid token" });
+    res.status(401).json({ message: "Token expired, please login" });
     throw error;
   }
 });
