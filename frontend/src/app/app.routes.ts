@@ -5,10 +5,6 @@ import { LayoutComponent } from './auth/layout/layout.component';
 
 export const AppRoutingModule: Routes = [
   {
-    path: '',
-    component: LayoutComponent,
-  },
-  {
     path: 'auth',
     loadChildren: () =>
       import('./auth/auth-routing.module').then((m) => m.AuthRoutes),
