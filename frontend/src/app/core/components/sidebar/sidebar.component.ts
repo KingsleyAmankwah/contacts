@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
   @Output() onAddLabel = new EventEmitter();
 
   ngOnInit() {
-    this.loadLabels();
+    // this.loadLabels();
     this.loadContactCount();
   }
 
@@ -40,11 +40,11 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  loadLabels() {
-    this.contactService.getLabels().subscribe((response) => {
-      this.labelList = response.data.labels;
-    });
-  }
+  // loadLabels() {
+  //   this.contactService.getLabels().subscribe((response) => {
+  //     this.labelList = response.data.labels;
+  //   });
+  // }
 
   TrackLabel(label: Label) {
     return label._id;
