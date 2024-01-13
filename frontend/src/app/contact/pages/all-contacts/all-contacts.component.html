@@ -83,8 +83,12 @@
         >
           <ng-container>
             <mat-icon>star_outline</mat-icon>
-            <mat-icon>edit_outlined</mat-icon>
-            <mat-icon>delete_outline</mat-icon>
+            <mat-icon [routerLink]="['/contact', contact._id, 'edit']"
+              >edit_outlined</mat-icon
+            >
+            <mat-icon (click)="handleDeteteContact(contact._id)"
+              >delete_outline</mat-icon
+            >
           </ng-container>
         </div>
       </div>

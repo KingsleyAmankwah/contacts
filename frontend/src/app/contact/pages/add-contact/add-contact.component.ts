@@ -7,6 +7,7 @@ import { InputComponent } from '../../../core/components/input/input.component';
 import { CommonModule, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-contact',
@@ -21,15 +22,20 @@ export class AddContactComponent {
   isSubmitted = false;
   isReadOnly = false;
   isLoading = false;
+
   router = inject(Router);
   formBuilder = inject(FormBuilder);
   contactService = inject(ContactService);
   toast = inject(ToastrService);
+  snackBar = inject(MatSnackBar);
 
   closeForm() {
     this.router.navigateByUrl('/contact/list');
   }
 
+  showSnackBar(message: string) {
+    this.snackBar.open(message, '', { duration: 3000 });
+  }
   form = this.formBuilder.group({
     firstName: this.formBuilder.control('', [
       Validators.required,
@@ -41,10 +47,7 @@ export class AddContactComponent {
       Validators.minLength(3),
       Validators.pattern(/^[a-zA-Z]*$/),
     ]),
-    nickName: this.formBuilder.control('', [
-      Validators.minLength(3),
-      Validators.pattern(/^[a-zA-Z]*$/),
-    ]),
+    nickName: this.formBuilder.control('', [Validators.minLength(3)]),
 
     company: this.formBuilder.control(''),
     jobTitle: this.formBuilder.control(''),
@@ -147,20 +150,16 @@ export class AddContactComponent {
       this.isLoading = true;
       const formData = this.form.value as ContactDetail;
 
-      // Call your contactService to save the contact
       this.contactService.createContact(formData).subscribe(
         (response) => {
-          // Handle the successful save here, if needed
-          // console.log('Contact saved successfully', response);
           this.isLoading = false;
           this.router.navigateByUrl('/contact/list');
-          // console.log(response);
-          this.toast.success(response.message, 'Success');
+          this.showSnackBar(response.message);
         },
         (error) => {
           console.error('Error saving contact', error);
           this.isLoading = false;
-          this.toast.error(error.error.message, 'Error');
+          this.showSnackBar(error.error.message);
         }
       );
     } else {
