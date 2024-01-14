@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -14,29 +21,24 @@ import { Label } from '../../../contact/interface';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   labelList: Label[] = [];
-  count: number = 0;
+
+  contactListLength!: number;
 
   dialog = inject(MatDialog);
   contactService = inject(ContactService);
   @Output() onAddLabel = new EventEmitter();
 
   ngOnInit() {
-    // this.loadLabels();
-    this.loadContactCount();
+    this.contactService.contactListLength.subscribe((length) => {
+      this.contactListLength = length;
+    });
   }
 
   showBulkUploadPopup() {
     this.dialog.open(BulkUploadPopupComponent, {
       width: '500px',
-    });
-  }
-
-  loadContactCount() {
-    // Assuming you have a method in your ContactService to fetch the contact count
-    this.contactService.getContactCount().subscribe((count) => {
-      this.count = count;
     });
   }
 
