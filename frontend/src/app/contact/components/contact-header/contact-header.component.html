@@ -13,24 +13,24 @@
     <div class="text-[#3c4043] text-sm px-3 font-medium">
       <span>Phone </span>
     </div>
+
     <div class="text-[#3c4043] text-sm px-3 font-medium hidden lg:flex">
-      <span ngIf="!isTrash">Job Title </span>
-      <span class=""> & Company</span>
-      <!-- <span class="isTrash">Date deleted</span> -->
+      @if (!isTrash) {
+      <span>Date deleted</span>
+      }@else {
+      <span>Job Title & Company</span>
+      }
     </div>
 
+    @if(!isTrash){
+
     <div
-      ngIf="!isTrash"
       class="hidden lg:flex gap-3 items-center justify-end text-dark-gray text-xl font-medium"
     >
       <button matTooltip="Export" matTooltipClass="text-sm">
-        <!-- <i
-        class="icon-export-variant cursor-pointer"
-        (click)="handleExportContact()"
-      ></i> -->
-
         <mat-icon class="cursor-pointer">upload</mat-icon>
       </button>
     </div>
+    }
   </div>
 </div>
