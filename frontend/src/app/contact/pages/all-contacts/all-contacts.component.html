@@ -21,7 +21,7 @@
   <div class="flex flex-col">
     <div
       class="relative group grid grid-cols-[0.25fr_0.25fr_0.2fr_0.2fr_0.1fr] items-center text-sm py-2 [&:is([aria-selected='true'])]:bg-[#F2F2F2] [&:is([aria-selected='false'])]:hover:bg-[#EBEBEB] transition-colors duration-200 cursor-pointer before:hidden before:focus-within:block before:content-[''] before:absolute before:w-1 before:rounded-tr-md before:rounded-br-md before:bg-[#1973E8] before:h-full"
-      *ngFor="let contact of contactList; trackBy: trackByFn"
+      *ngFor="let contact of filteredContactList; trackBy: trackByFn"
     >
       <div class="relative flex items-center gap-5 px-3 h-full">
         <div
@@ -82,7 +82,7 @@
           class="hidden group-hover:flex items-center justify-end gap-3 text-xl text-[#5f6368]"
         >
           <ng-container>
-            <mat-icon>star_outline</mat-icon>
+            <!-- <mat-icon>star_outline</mat-icon> -->
             <mat-icon [routerLink]="['/contact', contact._id, 'edit']"
               >edit_outlined</mat-icon
             >
@@ -93,5 +93,11 @@
         </div>
       </div>
     </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!isLoading && filteredContactList.length === 0">
+  <div class="flex justify-center text-xl">
+    No Contacts Found for <span class="font-bold"> '{{ searchTerm }}'</span>
   </div>
 </ng-container>
