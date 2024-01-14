@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Contact, ContactDetail, Label } from '../interface';
 import { HttpClient } from '@angular/common/http';
 import { CONTACT_URL, LABEL_URL } from '../../core/constants/apiEndpoints';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +13,28 @@ export class ContactService {
 
   http = inject(HttpClient);
 
+  private contactListLengthSource = new BehaviorSubject<number>(0);
+  private searchTerm = new BehaviorSubject<string>('');
+
+  contactListLength = this.contactListLengthSource.asObservable();
+
+  updateContactListLength(length: number) {
+    this.contactListLengthSource.next(length);
+  }
+
+  updateSearchTerm(term: string) {
+    this.searchTerm.next(term);
+  }
+
+  getSearchTerm(): Observable<string> {
+    return this.searchTerm.asObservable();
+  }
+
   getContacts() {
-    let params: any = {};
     return this.http.get<{
       message: string;
       data: { contacts: Contact[] };
-    }>(`${CONTACT_URL}/all`, { params });
+    }>(`${CONTACT_URL}/all`);
   }
 
   getContactById(contactId: string) {
@@ -28,10 +44,10 @@ export class ContactService {
     }>(`${CONTACT_URL}/${contactId}/detail`);
   }
 
-  getContactCount(): Observable<number> {
-    return this.http
-      .get<{ message: string; data: { count: number } }>(`${CONTACT_URL}/count`)
-      .pipe(map((response) => response.data.count));
+  getAllTrash() {
+    return this.http.get<{ message: string; data: { contacts: Contact[] } }>(
+      `${CONTACT_URL}/trash`
+    );
   }
 
   createContact(data: ContactDetail) {
@@ -48,29 +64,11 @@ export class ContactService {
     );
   }
 
-  // getAllLabels() {
-  //   this.http
-  //     .get<{ message: string; data: { labels: Label[] } }>(`${LABEL_URL}/all`)
-  //     .subscribe(({ data: { labels } }) => {
-  //       this.labels = labels;
-  //     });
-  // }
-
-  // getLabels(): Observable<{ message: string; data: { labels: Label[] } }> {
-  //   return this.http.get<{ message: string; data: { labels: Label[] } }>(
-  //     `${LABEL_URL}/all`
-  //   );
-  // }
-
   removeContact(contactId: string[]) {
     return this.http.delete<{ message: string }>(`${CONTACT_URL}/remove`, {
       body: contactId,
     });
   }
-
-  // updateContactById(contactId: string, data: ContactDetail) {
-  //   return this.http.put(`${CONTACT_URL}/${contactId}/update`, data);
-  // }
 
   updateContactById(
     contactId: string,
@@ -79,6 +77,13 @@ export class ContactService {
     return this.http.put<{ message: string }>(
       `${CONTACT_URL}/${contactId}/update`,
       data
+    );
+  }
+
+  recoverContact(contactId: string) {
+    return this.http.put<{ message: string }>(
+      `${CONTACT_URL}/${contactId}/recover`,
+      {}
     );
   }
 }
