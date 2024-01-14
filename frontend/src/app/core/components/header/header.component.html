@@ -23,8 +23,9 @@
         >search</mat-icon
       >
       <input
-        class="w-full bg-[#F1F3F4] h-[46px] rounded-md px-12 outline-none focus:bg-dark-white focus:shadow-search focus:rounded-br-none focus:rounded-bl-none"
+        class="w-full bg-[#F1F3F4] h-[46px] rounded-md px-12 outline-none focus:bg-[rgba(255,255,255,1)] focus:shadow-md focus:rounded-br-none focus:rounded-bl-none"
         placeholder="Search"
+        (input)="handleInputChange($event)"
       />
     </div>
   </div>

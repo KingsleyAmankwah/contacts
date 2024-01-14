@@ -15,17 +15,20 @@ export class HeaderComponent {
   authService = inject(AuthService);
 
   @Output() toggleSidebar = new EventEmitter<void>();
+  @Output() search = new EventEmitter<string>();
 
   onToggleSidebar() {
-    this.toggleSidebar.emit(); // Call this method when the menu icon is clicked
+    this.toggleSidebar.emit();
   }
 
-  // get initial() {
-  //   if (!this.authService.user) return '';
-  //   let [firstLetter, secondLetter = ''] =
-  //     this.authService.user.name.split(' ');
-  //   return `${firstLetter[0].toUpperCase()}${secondLetter[0].toUpperCase()}`.trim();
-  // }
+  onSearch(term: string) {
+    this.search.emit(term);
+  }
+
+  handleInputChange(event: Event) {
+    const inputValue = (event.target as HTMLInputElement)?.value;
+    this.onSearch(inputValue);
+  }
 
   get initial() {
     if (!this.authService.user) return '';
