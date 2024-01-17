@@ -3,18 +3,11 @@
 
 &#xa0;
 
-  <!-- <a href="https://contacts.netlify.app">Demo</a> -->
+<a href="https://contacts-liart.vercel.app/">Demo</a>
+
 </div>
 
 <h1 align="center">Contacts</h1>
-
-<!-- Status -->
-
-<!-- <h4 align="center">
-	🚧  Contacts 🚀 Under construction...  🚧
-</h4>
-
-<hr> -->
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
@@ -23,30 +16,32 @@
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
   <a href="#memo-license">License</a> &#xa0; | &#xa0;
-  <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">Author</a>
 </p>
 
 <br>
 
 ## :dart: About
 
-Describe your project
+A Simple Contact Manager to organize your contact list.
 
 ## :sparkles: Features
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
+:heavy_check_mark: User Authentication and Authorization(Login and SignUp);\
+:heavy_check_mark: Input Validations;\
+:heavy_check_mark: Saving contact details;\
+:heavy_check_mark: Editing contacts;\
+:heavy_check_mark: Moving Contacts to trash;\
+:heavy_check_mark: Restoring deleted contacts;
 
 ## :rocket: Technologies
 
 The following tools were used in this project:
 
-- [Expo](https://expo.io/)
-- [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Angular](https://expo.io/)
+- [Node.js](https://nodejs.org/en/)
+- [MongoDB](https://pt-br.reactjs.org/)
+- [Express Js](https://expressjs.com/)
 
 ## :white_check_mark: Requirements
 
@@ -56,18 +51,18 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) an
 
 ```bash
 # Clone this project
-$ git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/contacts
+$ git clone https://github.com/KingsleyAmankwah/contacts
 
 # Access
 $ cd contacts
 
 # Install dependencies
-$ yarn
+$ npm install
 
 # Run the project
-$ yarn start
+$ ng serve -o
 
-# The server will initialize in the <http://localhost:3000>
+# The server will initialize in the <(http://localhost:4200/>
 ```
 
 ## :memo: License
