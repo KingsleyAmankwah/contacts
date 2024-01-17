@@ -23,7 +23,7 @@ import { RouterLink } from '@angular/router';
 })
 export class AllContactsComponent implements OnInit {
   isLoading = true;
-  // isTrash = false;
+  isTrash = false;
   contactList: Contact[] = [];
   searchTerm = '';
 

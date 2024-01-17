@@ -1,4 +1,4 @@
-<app-contact-header />
+<app-contact-header [isTrash]="isTrash" />
 
 <div *ngIf="isLoading">
   <div class="loadingSpinnerContainer">
@@ -96,8 +96,12 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="!isLoading && filteredContactList.length === 0">
-  <div class="flex justify-center text-xl">
+<ng-container
+  *ngIf="
+    !isLoading && filteredContactList.length === 0 && contactList.length !== 0
+  "
+>
+  <div class="flex justify-center text-center text-xl">
     No Contacts Found for <span class="font-bold"> '{{ searchTerm }}'</span>
   </div>
 </ng-container>

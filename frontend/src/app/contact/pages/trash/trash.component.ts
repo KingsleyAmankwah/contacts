@@ -23,7 +23,7 @@ dayjs.extend(relativeTime);
 })
 export class TrashComponent {
   isLoading = true;
-  // isTrash = true;
+  isTrash = true;
   trashList: Contact[] = [];
 
   contactService = inject(ContactService);

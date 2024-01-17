@@ -15,14 +15,9 @@
     </div>
 
     <div class="text-[#3c4043] text-sm px-3 font-medium hidden lg:flex">
-      @if (!isTrash) {
-      <span>Date deleted</span>
-      }@else {
-      <span>Job Title & Company</span>
-      }
+      <ng-container *ngIf="isTrash">Date deleted</ng-container>
+      <ng-container *ngIf="!isTrash">Job Title & Company</ng-container>
     </div>
-
-    @if(!isTrash){
 
     <div
       class="hidden lg:flex gap-3 items-center justify-end text-dark-gray text-xl font-medium"
@@ -31,6 +26,5 @@
         <mat-icon class="cursor-pointer">upload</mat-icon>
       </button>
     </div>
-    }
   </div>
 </div>
