@@ -6,7 +6,17 @@ body {
   overflow-x: hidden;
 }
 
-/* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */
+.error-border {
+  border: 1px solid red;
+  padding: 8px 0px;
+  padding-inline-start: 1rem;
+}
+
+.success-border {
+  border: 1px solid rgb(71, 184, 71);
+  padding: 8px 0px;
+  padding-inline-start: 1rem;
+}
 
 /* position */
 .toast-center-center {
