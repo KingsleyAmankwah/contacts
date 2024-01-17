@@ -9,10 +9,11 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { SignInData } from '../../Interface';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css',
 })
@@ -35,6 +36,13 @@ export class SignInComponent {
       password: ['', [Validators.required]],
     });
   }
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading = true;

@@ -28,7 +28,18 @@
               class="bg-gray-50 border-[0.5px] text-black sm:text-sm rounded-lg block w-full p-2.5 focus:border-blue-500 focus:outline-none"
               placeholder="Jane"
               formControlName="firstName"
+              [class.error-border]="firstName && firstName.touched"
+              [class.success-border]="firstName && firstName.valid"
             />
+
+            <p
+              *ngIf="firstName?.invalid && firstName?.touched"
+              class="text-red-500 text-xs"
+            >
+              {{ firstName?.errors?.['required'] ? 'Please enter first name' : '' }}
+              {{ firstName?.errors?.['pattern'] ? 'First name should contain alphapets only' : '' }}
+              {{ firstName?.errors?.['minlength'] ? 'First name should contain atleast 3 characters' : '' }}
+            </p>
           </div>
           <div>
             <label
@@ -41,7 +52,18 @@
               class="bg-gray-50 border-[0.5px] text-black sm:text-sm rounded-lg block w-full p-2.5 focus:border-blue-500 focus:outline-none"
               placeholder="Doe"
               formControlName="lastName"
+              [class.error-border]="lastName && lastName.touched"
+              [class.success-border]="lastName && lastName.valid"
             />
+
+            <p
+              *ngIf="lastName?.invalid && lastName?.touched"
+              class="text-red-500 text-xs"
+            >
+              {{ firstName?.errors?.['required'] ? 'Please enter last name' : '' }}
+              {{ firstName?.errors?.['pattern'] ? 'Last name should contain alphapets only' : '' }}
+              {{ firstName?.errors?.['minlength'] ? 'Last name should contain atleast 3 characters' : '' }}
+            </p>
           </div>
           <div>
             <label
@@ -54,7 +76,17 @@
               class="bg-gray-50 border-[0.5px] text-black sm:text-sm rounded-lg block w-full p-2.5 focus:border-blue-500 focus:outline-none"
               placeholder="name@company.com"
               formControlName="email"
+              [class.error-border]="email && email.invalid && email.touched"
+              [class.success-border]="email && email.valid"
             />
+
+            <p
+              *ngIf="email?.invalid && email?.touched"
+              class="text-red-500 text-xs"
+            >
+              {{ email?.errors?.['required'] ? 'Email is required' : '' }}
+              {{ email?.errors?.['email'] ? 'Invalid email format' : '' }}
+            </p>
           </div>
           <div>
             <label
@@ -67,7 +99,17 @@
               placeholder="••••••••"
               class="bg-gray-50 border-[0.5px] text-black sm:text-sm rounded-lg block w-full p-2.5 focus:border-blue-500 focus:outline-none"
               formControlName="password"
+              [class.error-border]="passwordsMismatch()"
+              [class.success-border]="passwordsMatch()"
             />
+
+            <small
+              *ngIf="password && password?.errors?.['passwordStrength']"
+              class="text-red-400 text-xs flex items-end justify-end px-2 py-1 transistion duration-300 ease-in-out"
+            >
+              Passwords must contain at least 8 characters, including UPPERCASE,
+              lowercase letters, a number, and a special character (&#64;$%^&*).
+            </small>
           </div>
           <div>
             <label
@@ -80,7 +122,16 @@
               placeholder="••••••••"
               class="bg-gray-50 border-[0.5px] text-black sm:text-sm rounded-lg block w-full p-2.5 focus:border-blue-500 focus:outline-none"
               formControlName="confirmPassword"
+              [class.error-border]="passwordsMismatch()"
+              [class.success-border]="passwordsMatch()"
             />
+
+            <p
+              class="error-message text-red-400 text-xs flex items-start justify-start px-2 py-1"
+              *ngIf="showErrorMessage()"
+            >
+              {{ errorMessage }}
+            </p>
           </div>
 
           <button

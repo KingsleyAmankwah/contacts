@@ -9,11 +9,13 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { SignUpData } from '../../Interface';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { CustomValidators } from '../../../core/utils';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
 })
@@ -32,12 +34,76 @@ export class SignUpComponent {
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
+      lastName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]],
+      password: [
+        '',
+        [Validators.required, CustomValidators.passwordStrength()],
+      ],
+      confirmPassword: [
+        '',
+        [Validators.required, CustomValidators.passwordStrength()],
+      ],
     });
+  }
+
+  get firstName() {
+    return this.registerForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.registerForm.get('lastName');
+  }
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword');
+  }
+
+  passwordsMatch() {
+    return (
+      this.confirmPassword?.touched &&
+      this.password?.value === this.confirmPassword?.value
+    );
+  }
+
+  passwordsMismatch() {
+    return (
+      this.registerForm.get('confirmPassword')?.touched &&
+      this.password?.value !== this.confirmPassword?.value
+    );
+  }
+
+  showErrorMessage() {
+    if (this.passwordsMismatch()) {
+      this.errorMessage = 'The two passwords do not match!';
+      return true;
+    }
+
+    this.errorMessage = '';
+    return false;
   }
 
   onSubmit() {

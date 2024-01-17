@@ -28,6 +28,14 @@
               placeholder="name@company.com"
               formControlName="email"
             />
+
+            <p
+              *ngIf="email?.invalid && email?.touched"
+              class="text-red-500 text-xs"
+            >
+              {{ email?.errors?.['required'] ? 'Email is required' : '' }}
+              {{ email?.errors?.['email'] ? 'Invalid email format' : '' }}
+            </p>
           </div>
           <div>
             <label
@@ -41,6 +49,13 @@
               class="bg-gray-50 border-[0.5px] text-black sm:text-sm rounded-lg block w-full p-2.5 focus:border-blue-500 focus:outline-none"
               formControlName="password"
             />
+
+            <p
+              *ngIf="password?.invalid && password?.touched"
+              class="text-red-500 text-xs"
+            >
+              {{ password?.errors?.['required'] ? 'Password is required' : '' }}
+            </p>
           </div>
 
           <button
