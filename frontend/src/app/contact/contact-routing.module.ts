@@ -4,6 +4,7 @@ import { AllContactsComponent } from './pages/all-contacts/all-contacts.componen
 import { AddContactComponent } from './pages/add-contact/add-contact.component';
 import { TrashComponent } from './pages/trash/trash.component';
 import { EditContactComponent } from './pages/edit-contact/edit-contact.component';
+import { ViewContactComponent } from './pages/view-contact/view-contact.component';
 
 export const ContactRoutes: Routes = [
   {
@@ -25,6 +26,12 @@ export const ContactRoutes: Routes = [
         path: ':contactId/edit',
         component: EditContactComponent,
         title: 'Edit Contact',
+      },
+
+      {
+        path: ':contactId/view',
+        component: ViewContactComponent,
+        title: 'View Contact',
       },
 
       { path: 'trash', component: TrashComponent, title: 'Trash' },
