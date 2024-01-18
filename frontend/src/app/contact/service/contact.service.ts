@@ -86,4 +86,8 @@ export class ContactService {
       {}
     );
   }
+
+  clearTrash() {
+    return this.http.delete<{ message: string }>(`${CONTACT_URL}/trash`);
+  }
 }
