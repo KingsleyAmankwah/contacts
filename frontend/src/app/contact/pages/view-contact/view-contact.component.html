@@ -1,0 +1,132 @@
+<div *ngIf="isLoading">
+  <div class="loadingSpinnerContainer">
+    <div class="loadingSpinner"></div>
+  </div>
+</div>
+
+<div
+  class="sticky top-10 left-0 right-0 h-52 border-b border-b-gray-300 bg-white z-20"
+>
+  <div class="flex justify-between w-full h-full">
+    <div class="flex items-center gap-7">
+      <div class="flex self-start mt-4">
+        <mat-icon class="text-2xl cursor-pointer" (click)="closeForm()"
+          >close</mat-icon
+        >
+      </div>
+      <div
+        class="relative flex justify-center items-center w-32 h-32 rounded-full text-white text-4xl font-medium"
+        [style]="{
+          backgroundColor: contactDetail.colorCode
+        }"
+      >
+        {{
+          contactDetail.firstName &&
+            contactDetail.firstName.charAt(0).toUpperCase()
+        }}{{
+          contactDetail.lastName &&
+            contactDetail.lastName.charAt(0).toUpperCase()
+        }}
+      </div>
+    </div>
+    <div
+      class="flex self-end justify-end lg:justify-start w-[150px] pb-6"
+    ></div>
+  </div>
+</div>
+
+<form class="my-6 lg:pl-6 md:w-[50%] px-4 md:px-0">
+  <div class="flex items-start gap-3 md:gap-5 w-full">
+    <span>
+      <mat-icon class="text-gray justify-center items-center text-xl"
+        >account_circle</mat-icon
+      >
+    </span>
+    <div class="flex flex-col gap-7 w-full">
+      {{ contactDetail.firstName }}
+      {{ contactDetail.lastName }}
+    </div>
+  </div>
+
+  <div class="flex items-start gap-5 mt-5">
+    <span>
+      <mat-icon class="text-gray justify-center items-center text-2xl"
+        >business</mat-icon
+      >
+    </span>
+    <div class="flex flex-col gap-4 w-full">
+      {{ contactDetail.jobTitle }}
+      {{ contactDetail.company }}
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <span>
+      <mat-icon class="text-gray justify-center items-center text-2xl"
+        >email</mat-icon
+      >
+    </span>
+    <div class="flex flex-col gap-4 w-full">
+      {{ contactDetail.email }}
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <span>
+      <mat-icon class="text-gray justify-center items-center text-2xl"
+        >phone</mat-icon
+      >
+    </span>
+    <div class="flex flex-col gap-4 w-full">
+      {{ contactDetail.phone }}
+    </div>
+  </div>
+
+  <div class="flex items-start gap-5 mt-5">
+    <span>
+      <mat-icon class="text-gray justify-center items-center text-2xl"
+        >location_on</mat-icon
+      >
+    </span>
+    <div class="flex flex-col gap-4 w-full">
+      {{ contactDetail.addressLine1 }}
+      {{ contactDetail.addressLine2 }}
+      {{ contactDetail.city }}
+      {{ contactDetail.state }}
+      {{ contactDetail.country }}
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <span>
+      <mat-icon class="text-gray justify-center items-center text-2xl"
+        >cake</mat-icon
+      >
+    </span>
+    <div class="flex flex-col gap-4 w-full">
+      {{ contactDetail.birthday | date : "dd/MM/yyyy" }}
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <span>
+      <mat-icon class="text-gray justify-center items-center text-2xl"
+        >link</mat-icon
+      >
+    </span>
+    <div class="flex flex-col gap-4 w-full">
+      {{ contactDetail.website }}
+    </div>
+  </div>
+
+  <div class="flex items-center gap-5 mt-5">
+    <span>
+      <mat-icon class="text-gray justify-center items-center text-2xl"
+        >note</mat-icon
+      >
+    </span>
+    <div class="flex flex-col gap-4 w-full">
+      {{ contactDetail.notes }}
+    </div>
+  </div>
+</form>
