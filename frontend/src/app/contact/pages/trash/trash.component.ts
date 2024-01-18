@@ -69,4 +69,26 @@ export class TrashComponent {
       }
     );
   }
+
+  emptyTrash() {
+    if (this.trashList.length !== 0) {
+      if (
+        !window.confirm(
+          'Are you sure you want to permanently delete the contact?'
+        )
+      )
+        return;
+
+      this.contactService.clearTrash().subscribe(
+        (response) => {
+          this.trashList = [];
+          this.showSnackBar(response.message);
+        },
+        (error) => {
+          console.info('Error emptying trash:', error);
+          this.showSnackBar('Error emptying trash');
+        }
+      );
+    }
+  }
 }

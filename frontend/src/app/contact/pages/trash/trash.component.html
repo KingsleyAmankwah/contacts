@@ -1,4 +1,20 @@
+<div
+  class="flex flex-col md:flex-row text-center items-center justify-center gap-4 bg-[#F1F3F4] py-3 rounded-md text-sm font-medium w-full"
+>
+  <span class="text-[#5f6368]">
+    Contacts that have been deleted will be present in the trash
+  </span>
+  <button
+    class="text-[#508EEB] bg-[#E8F0FE] px-2 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50"
+    (click)="emptyTrash()"
+    [disabled]="trashList.length === 0"
+  >
+    Empty Trash now
+  </button>
+</div>
+
 <app-contact-header [isTrash]="isTrash" />
+
 <div *ngIf="isLoading">
   <div class="loadingSpinnerContainer">
     <div class="loadingSpinner"></div>
