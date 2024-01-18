@@ -1,11 +1,4 @@
-<div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="Contacts" />
-
-&#xa0;
-
-<a href="https://contacts-liart.vercel.app/">Demo</a>
-
-</div>
+<div align="center" id="top"></div>
 
 <h1 align="center">Contacts</h1>
 
@@ -31,7 +24,8 @@ A Simple Contact Manager to organize your contact list.
 :heavy_check_mark: Saving contact details;\
 :heavy_check_mark: Editing contacts;\
 :heavy_check_mark: Moving Contacts to trash;\
-:heavy_check_mark: Restoring deleted contacts;
+:heavy_check_mark: Restoring deleted contacts;\
+:heavy_check_mark: Searching of contact names;
 
 ## :rocket: Technologies
 
@@ -65,6 +59,6 @@ $ ng serve -o
 # The server will initialize in the <(http://localhost:4200/>
 ```
 
-## :memo: License
+## :memo:
 
 <a href="#top">Back to top</a>
