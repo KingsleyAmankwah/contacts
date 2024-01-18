@@ -67,7 +67,9 @@ export class AddContactComponent {
     city: this.formBuilder.control(''),
     pincode: this.formBuilder.control('', [Validators.pattern(/^\d{6}$/)]),
     birthday: this.formBuilder.control('', [
-      Validators.pattern(/^\d{4}-\d{2}-\d{2}$/),
+      Validators.pattern(
+        /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d\d$/
+      ),
     ]),
     website: this.formBuilder.control('', [
       Validators.pattern(

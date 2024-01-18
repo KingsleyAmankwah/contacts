@@ -203,9 +203,11 @@
         [hasError]="isSubmitted && birthday.errors !== null"
         [readOnly]="isReadOnly"
         [errorMessage]="{
-          pattern: 'Invalid birthday date'
+          pattern: 'Invalid birth date Follow the format: dd/mm/yyyy'
         }"
       />
+
+      <!-- <small class="text-xs"> Follow the format: dd/mm/yyyy </small> -->
     </div>
   </div>
 
