@@ -40,39 +40,3 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   );
 };
 
-// import {
-//   HttpErrorResponse,
-//   HttpEvent,
-//   HttpInterceptor,
-//   HttpHandler,
-//   HttpRequest,
-// } from '@angular/common/http';
-// import { catchError } from 'rxjs/operators';
-// import { Injectable } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { cookie } from '../utils';
-
-// @Injectable()
-// export class authInterceptor implements HttpInterceptor {
-//   constructor(private router: Router) {}
-
-//   intercept(req: HttpRequest<any>, next: HttpHandler) {
-//     const authToken = cookie.get('auth_token');
-
-//     let cloneReq = req.clone({
-//       setHeaders: {
-//         Authorization: authToken ? `Bearer ${authToken}` : '',
-//       },
-//     });
-
-//     return next.handle(cloneReq).pipe(
-//       catchError((error: any) => {
-//         if (error instanceof HttpErrorResponse && error.status === 401) {
-//           // Token expired or invalid, redirect to sign-in
-//           this.router.navigate(['/auth/sign-in']);
-//         }
-//         throw error;
-//       })
-//     );
-//   }
-// }
