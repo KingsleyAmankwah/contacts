@@ -1,21 +1,16 @@
 export const cookie = {
-  // Set a cookie with the given name, value, and expiration days
   set: ({
     name,
     value,
-    days,
+    hours,
   }: {
     name: string;
     value: string;
-    days: number;
+    hours: number;
   }): void => {
-    // Create a new Date object for the expiration date
     const expireDate = new Date();
-    // Set the expiration date by adding the specified number of days
-    expireDate.setTime(expireDate.getTime() + days * 24 * 60 * 60 * 1000);
-    // Format the expires string with the UTC time of the expiration date
+    expireDate.setTime(expireDate.getTime() + hours * 60 * 60 * 1000);
     const expires = `; expires=${expireDate.toUTCString()}`;
-    // Set the cookie with the provided name, value, and expiration settings
     document.cookie = `${name}=${value}${expires}; path=/`;
   },
 
