@@ -20,47 +20,39 @@ import { CustomValidators } from '../../../core/utils';
   styleUrl: './sign-up.component.css',
 })
 export class SignUpComponent {
-  registerForm!: FormGroup;
   errorMessage = '';
   isLoading = false;
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) {}
 
-  toast = inject(ToastrService);
-
-  ngOnInit() {
-    this.registerForm = this.fb.group({
-      firstName: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.pattern('^[a-zA-Z]+$'),
-        ],
+  registerForm = this.fb.group({
+    firstName: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern('^[a-zA-Z]+$'),
       ],
-      lastName: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.pattern('^[a-zA-Z]+$'),
-        ],
+    ],
+    lastName: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern('^[a-zA-Z]+$'),
       ],
-      email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [Validators.required, CustomValidators.passwordStrength()],
-      ],
-      confirmPassword: [
-        '',
-        [Validators.required, CustomValidators.passwordStrength()],
-      ],
-    });
-  }
+    ],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, CustomValidators.passwordStrength()]],
+    confirmPassword: [
+      '',
+      [Validators.required, CustomValidators.passwordStrength()],
+    ],
+  });
 
   get firstName() {
     return this.registerForm.get('firstName');
@@ -111,10 +103,10 @@ export class SignUpComponent {
       this.isLoading = true;
 
       const signUpData: SignUpData = {
-        firstName: this.registerForm.value.firstName,
-        lastName: this.registerForm.value.lastName,
-        email: this.registerForm.value.email,
-        password: this.registerForm.value.password,
+        firstName: this.registerForm.value.firstName!,
+        lastName: this.registerForm.value.lastName!,
+        email: this.registerForm.value.email!,
+        password: this.registerForm.value.password!,
       };
 
       this.authService.signUp(signUpData).subscribe({
@@ -122,15 +114,14 @@ export class SignUpComponent {
           this.isLoading = false;
           console.log(response);
           this.toast.success(response.message, 'Success');
-
           this.router.navigate(['/contact/list']);
+
         },
         error: (error) => {
           this.errorMessage = error;
           this.isLoading = false;
           this.toast.error(error.error.message, 'Error');
-          console.error('Sign up error:', error);
-          // Optionally reset form or handle error specific UI changes here.
+          // console.error('Sign up error:', error);
         },
       });
     }

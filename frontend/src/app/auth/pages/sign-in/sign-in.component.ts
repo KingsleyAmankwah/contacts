@@ -18,24 +18,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sign-in.component.css',
 })
 export class SignInComponent {
-  loginForm!: FormGroup;
   errorMessage = '';
   isLoading = false;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private toast: ToastrService,
     private router: Router
   ) {}
 
-  toast = inject(ToastrService);
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+  });
 
-  ngOnInit() {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-    });
-  }
   get email() {
     return this.loginForm.get('email');
   }
@@ -48,23 +45,20 @@ export class SignInComponent {
       this.isLoading = true;
 
       const signInData: SignInData = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password,
+        email: this.loginForm.value.email!,
+        password: this.loginForm.value.password!,
       };
 
       this.authService.signIn(signInData).subscribe({
         next: (response) => {
           this.isLoading = false;
-          console.log(response);
+          // console.log(response);
           this.toast.success(response.message, 'Success');
-          // this.router.navigate(['/contact/list']);
         },
         error: (error) => {
           this.errorMessage = error;
           this.isLoading = false;
-          // console.error('Sign up error:', error);
           this.toast.error(error.error.message, 'Error');
-          // Optionally reset form or handle error specific UI changes here.
         },
       });
     }
