@@ -30,6 +30,9 @@
     </div>
   </div>
   <div class="flex items-end justify-end gap-6 ml-4">
+    <p class="text-xs lg:flex items-center text-center hidden">
+      {{ this.authService.user?.name }}
+    </p>
     <div
       [matMenuTriggerFor]="userOption"
       class="flex items-center justify-center md:w-11 md:h-11 w-8 h-8 bg-blue rounded-full cursor-pointer"
