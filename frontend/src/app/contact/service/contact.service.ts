@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { EventEmitter, Injectable, inject } from '@angular/core';
 import { Contact, ContactDetail, Label } from '../interface';
 import { HttpClient } from '@angular/common/http';
 import { CONTACT_URL, LABEL_URL } from '../../core/constants/apiEndpoints';
@@ -8,11 +8,12 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
   providedIn: 'root',
 })
 export class ContactService {
-  labels: Label[] = [];
+  labels!: Label[];
   totalContacts = 0;
 
   http = inject(HttpClient);
-
+  onDeleteLabel = new EventEmitter<string>();
+  
   private contactListLengthSource = new BehaviorSubject<number>(0);
   private searchTerm = new BehaviorSubject<string>('');
 
@@ -57,13 +58,6 @@ export class ContactService {
     }>(`${CONTACT_URL}/create`, data);
   }
 
-  createLabel(data: Label) {
-    return this.http.post<{ message: string; data: { label: Label } }>(
-      `${LABEL_URL}/create`,
-      data
-    );
-  }
-
   removeContact(contactId: string[]) {
     return this.http.delete<{ message: string }>(`${CONTACT_URL}/remove`, {
       body: contactId,
@@ -84,6 +78,33 @@ export class ContactService {
     return this.http.put<{ message: string }>(
       `${CONTACT_URL}/${contactId}/recover`,
       {}
+    );
+  }
+
+  createLabel(data: Label) {
+    return this.http.post<{ message: string; data: { label: Label } }>(
+      `${LABEL_URL}/create`,
+      data
+    );
+  }
+
+  getLabels() {
+    return this.http.get<{
+      message: string;
+      data: { labels: Label[] };
+    }>(`${LABEL_URL}/all`);
+  }
+
+  updateLabelById(labelId: string, data: Label) {
+    return this.http.put<{ message: string }>(
+      `${LABEL_URL}/${labelId}/update`,
+      data
+    );
+  }
+
+  removeLabelById(labelId: string) {
+    return this.http.delete<{ message: string }>(
+      `${LABEL_URL}/${labelId}/remove`
     );
   }
 
