@@ -60,7 +60,7 @@ const ContactSchema = new Schema(
       default: null,
     },
     birthday: {
-      type: Date,
+      type: String,
       default: null,
     },
     website: {
