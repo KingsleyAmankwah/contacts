@@ -159,13 +159,11 @@ export class AddContactComponent {
           this.showSnackBar(response.message);
         },
         (error) => {
-          console.error('Error saving contact', error);
           this.isLoading = false;
           this.showSnackBar(error.error.message);
         }
       );
     } else {
-      // If the form is not valid, mark it as submitted to display error messages
       this.isSubmitted = true;
     }
   }
