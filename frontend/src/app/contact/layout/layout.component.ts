@@ -16,7 +16,7 @@ export class LayoutComponent {
   contactList: Contact[] = [];
   sidebarExpanded = false;
 
-  contactService = inject(ContactService);
+  constructor(private contactService: ContactService) {}
 
   onToggleSidebar() {
     this.sidebarExpanded = !this.sidebarExpanded;

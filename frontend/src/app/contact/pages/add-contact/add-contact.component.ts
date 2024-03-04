@@ -1,13 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ContactDetail } from '../../interface';
 import { ContactService } from '../../service/contact.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { InputComponent } from '../../../core/components/input/input.component';
-import { CommonModule, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-contact',
@@ -23,11 +22,12 @@ export class AddContactComponent {
   isReadOnly = false;
   isLoading = false;
 
-  router = inject(Router);
-  formBuilder = inject(FormBuilder);
-  contactService = inject(ContactService);
-  toast = inject(ToastrService);
-  snackBar = inject(MatSnackBar);
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private contactService: ContactService,
+    private snackBar: MatSnackBar
+  ) {}
 
   closeForm() {
     this.router.navigateByUrl('/contact/list');

@@ -16,12 +16,15 @@ import { Label } from '../../interface';
 export class LabelPopupComponent {
   label!: Label;
   @Output() labelCreated = new EventEmitter<Label>();
+  isSubmitted = false;
 
   dialogRef = inject(MatDialogRef<LabelPopupComponent>);
-  formBuilder = inject(FormBuilder);
-  contactService = inject(ContactService);
-  snackBar = inject(MatSnackBar);
-  isSubmitted = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private contactService: ContactService,
+    private snackBar: MatSnackBar
+  ) {}
 
   form = this.formBuilder.group({
     name: this.formBuilder.control('', [
@@ -49,7 +52,6 @@ export class LabelPopupComponent {
       .createLabel(data)
       .subscribe(({ message, data: { label } }) => {
         this.showSnackBar(message);
-        console.log(message, label);
         // this.dialogRef.close();
         this.labelCreated.emit(label); // Emit the created label
         this.dialogRef.close();

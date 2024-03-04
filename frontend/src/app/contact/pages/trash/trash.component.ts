@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ContactHeaderComponent } from '../../components/contact-header/contact-header.component';
 import { Contact } from '../../interface';
 import { ContactService } from '../../service/contact.service';
@@ -26,8 +26,10 @@ export class TrashComponent {
   isTrash = true;
   trashList: Contact[] = [];
 
-  contactService = inject(ContactService);
-  snackBar = inject(MatSnackBar);
+  constructor(
+    private contactService: ContactService,
+    private snackBar: MatSnackBar
+  ) {}
 
   showSnackBar(message: string) {
     this.snackBar.open(message, '', { duration: 3000 });
@@ -38,7 +40,6 @@ export class TrashComponent {
       (response) => {
         this.trashList = response.data.contacts;
         this.isLoading = false;
-        // console.log(response.data.contacts);
       },
       (error) => {
         console.info('Error fetching trash list:', error);
@@ -64,7 +65,6 @@ export class TrashComponent {
         this.showSnackBar(response.message);
       },
       (error) => {
-        console.info('Error recovering contact:', error);
         this.showSnackBar('Error recovering contact');
       }
     );
@@ -85,7 +85,6 @@ export class TrashComponent {
           this.showSnackBar(response.message);
         },
         (error) => {
-          console.info('Error emptying trash:', error);
           this.showSnackBar('Error emptying trash');
         }
       );

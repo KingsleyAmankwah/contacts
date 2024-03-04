@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContactDetail } from '../../interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -21,11 +21,13 @@ export class EditContactComponent implements OnInit {
   isReadOnly = false;
   isLoading = false;
 
-  router = inject(Router);
-  route = inject(ActivatedRoute);
-  formBuilder = inject(FormBuilder);
-  contactService = inject(ContactService);
-  snackBar = inject(MatSnackBar);
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private contactService: ContactService,
+    private snackBar: MatSnackBar
+  ) {}
 
   closeForm() {
     this.router.navigateByUrl('/contact/list');
@@ -35,7 +37,7 @@ export class EditContactComponent implements OnInit {
     this.snackBar.open(message, '', { duration: 3000 });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('contactId');
       // console.log('Contact ID:', id);
@@ -46,7 +48,6 @@ export class EditContactComponent implements OnInit {
         // Fetch contact details based on the ID
         this.contactService.getContactById(this.contactId).subscribe(
           (data) => {
-            // console.log('Contact Details:', data);
             this.contactDetail = data.data.contact;
 
             this.form.patchValue({
@@ -68,14 +69,14 @@ export class EditContactComponent implements OnInit {
               website: this.contactDetail.website,
               notes: this.contactDetail.notes,
             });
-            console.log('Fetching works!');
+            // console.log('Fetching works!');
           },
           (error) => {
-            console.error('Error fetching contact details:', error);
+            // console.error('Error fetching contact details:', error);
           }
         );
       } else {
-        console.log("Fetching doesn't work!");
+        // console.log("Fetching doesn't work!");
       }
     });
   }
@@ -208,7 +209,6 @@ export class EditContactComponent implements OnInit {
           }
         },
         (error) => {
-          console.error('Error updating contact:', error);
           this.isLoading = false;
 
           if (error.error && error.error.message) {
@@ -219,7 +219,6 @@ export class EditContactComponent implements OnInit {
         }
       );
     } else {
-      // If the form is not valid, mark it as submitted to display error messages
       this.isSubmitted = true;
     }
   }

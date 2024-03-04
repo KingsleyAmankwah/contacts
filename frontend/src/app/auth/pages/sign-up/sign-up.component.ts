@@ -1,10 +1,5 @@
-import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { SignUpData } from '../../Interface';
@@ -120,7 +115,6 @@ export class SignUpComponent {
           this.errorMessage = error;
           this.isLoading = false;
           this.toast.error(error.error.message, 'Error');
-          // console.error('Sign up error:', error);
         },
       });
     }

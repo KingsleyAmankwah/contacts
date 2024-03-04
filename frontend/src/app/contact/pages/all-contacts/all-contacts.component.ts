@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Contact } from '../../interface';
 import { ContactService } from '../../service/contact.service';
 import { ContactHeaderComponent } from '../../components/contact-header/contact-header.component';
 import { ContactListComponent } from '../../components/contact-list/contact-list.component';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterLink } from '@angular/router';
@@ -27,8 +27,10 @@ export class AllContactsComponent implements OnInit {
   contactList: Contact[] = [];
   searchTerm = '';
 
-  contactService = inject(ContactService);
-  snackBar = inject(MatSnackBar);
+  constructor(
+    private snackBar: MatSnackBar,
+    private contactService: ContactService
+  ) {}
 
   ngOnInit() {
     this.contactService.getContacts().subscribe(
@@ -38,7 +40,6 @@ export class AllContactsComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-        console.error('Error fetching contacts:', error);
         this.isLoading = false;
       }
     );
@@ -64,7 +65,6 @@ export class AllContactsComponent implements OnInit {
     this.contactService.removeContact([contactId]).subscribe(({ message }) => {
       // Show a snack bar notification with the message received from the server
       this.showSnackBar(message);
-      console.log(message);
 
       // Update the local contactList array by filtering out the deleted contact
       this.contactList = this.contactList.filter(

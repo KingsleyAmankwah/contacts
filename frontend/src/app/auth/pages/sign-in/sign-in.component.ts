@@ -52,7 +52,6 @@ export class SignInComponent {
       this.authService.signIn(signInData).subscribe({
         next: (response) => {
           this.isLoading = false;
-          // console.log(response);
           this.toast.success(response.message, 'Success');
         },
         error: (error) => {

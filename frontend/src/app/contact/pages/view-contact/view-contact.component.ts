@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactDetail } from '../../interface';
@@ -17,9 +17,12 @@ export class ViewContactComponent {
   contactDetail = {} as ContactDetail;
   isLoading = true;
 
-  router = inject(Router);
-  route = inject(ActivatedRoute);
-  contactService = inject(ContactService);
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private contactService: ContactService
+  ) {}
+
   closeForm() {
     this.router.navigateByUrl('/contact/list');
   }
@@ -27,15 +30,12 @@ export class ViewContactComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('contactId');
-      // console.log('Contact ID:', id);
 
       if (id !== null) {
         this.contactId = id;
 
-        // Fetch contact details based on the ID
         this.contactService.getContactById(this.contactId).subscribe(
           (response) => {
-            // console.log('Contact Details:', response.data.contact);
             this.isLoading = false;
             this.contactDetail = response.data.contact;
           },
