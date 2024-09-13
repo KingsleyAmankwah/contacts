@@ -1,16 +1,29 @@
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { SignUpData } from '../../Interface';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
-import { CustomValidators } from '../../../core/utils';
+import { CustomButtonComponent } from '../../layout/custom-button/custom-button.component';
+import { CustomInputComponent } from '../../layout/custom-input/custom-input.component';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    CommonModule,
+    CustomButtonComponent,
+    CustomInputComponent,
+  ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
 })
@@ -29,7 +42,7 @@ export class SignUpComponent {
       '',
       [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(2),
         Validators.pattern('^[a-zA-Z]+$'),
       ],
     ],
@@ -37,60 +50,43 @@ export class SignUpComponent {
       '',
       [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(2),
         Validators.pattern('^[a-zA-Z]+$'),
       ],
     ],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, CustomValidators.passwordStrength()]],
-    confirmPassword: [
+    email: [
       '',
-      [Validators.required, CustomValidators.passwordStrength()],
+      [
+        Validators.required,
+        Validators.email,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      ],
     ],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&_]).{8,}$/
+        ),
+      ],
+    ],
+    confirmPassword: ['', [this.confirmPasswordValidator]],
   });
 
-  get firstName() {
-    return this.registerForm.get('firstName');
-  }
-
-  get lastName() {
-    return this.registerForm.get('lastName');
-  }
-
-  get email() {
-    return this.registerForm.get('email');
-  }
-
-  get password() {
-    return this.registerForm.get('password');
-  }
-
-  get confirmPassword() {
-    return this.registerForm.get('confirmPassword');
-  }
-
-  passwordsMatch() {
-    return (
-      this.confirmPassword?.touched &&
-      this.password?.value === this.confirmPassword?.value
-    );
-  }
-
-  passwordsMismatch() {
-    return (
-      this.registerForm.get('confirmPassword')?.touched &&
-      this.password?.value !== this.confirmPassword?.value
-    );
-  }
-
-  showErrorMessage() {
-    if (this.passwordsMismatch()) {
-      this.errorMessage = 'The two passwords do not match!';
-      return true;
+  private confirmPasswordValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
+    if (!control.parent) {
+      return null;
     }
+    const password = control.parent.get('password')?.value;
+    const confirmPassword = control.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
 
-    this.errorMessage = '';
-    return false;
+  formControlName(name: string) {
+    return this.registerForm.get(name) as FormControl;
   }
 
   onSubmit() {
@@ -119,4 +115,65 @@ export class SignUpComponent {
       });
     }
   }
+
+  inputs = [
+    {
+      label: 'First Name',
+      type: 'text',
+      placeholder: 'Enter your firstname',
+      control: 'firstName',
+      errorMessage: {
+        required: 'First name is required',
+        pattern: 'First name should contain only alphabets',
+        minlength: 'First name should contain atleast 2 characters',
+      },
+    },
+
+    {
+      label: 'Last Name',
+      type: 'text',
+      placeholder: 'Enter your last name',
+      control: 'lastName',
+      errorMessage: {
+        required: 'Last name is required',
+        pattern: 'Last name should contain only alphabets',
+        minlength: 'Last name should contain atleast 2 characters',
+      },
+    },
+
+    {
+      type: 'email',
+      label: 'Email',
+      control: 'email',
+      placeholder: 'Enter your email address',
+      errorMessage: {
+        required: 'Email is required',
+        email: 'Invalid email address',
+        pattern: 'Invalid email address',
+      } as Record<string, string>,
+    },
+
+    {
+      type: 'password',
+      label: 'Password',
+      control: 'password',
+      placeholder: '••••••••',
+      errorMessage: {
+        required: 'Password is required',
+        pattern:
+          'Password must contain at least 8 characters including one uppercase letter, one lowercase letter, and one number',
+      } as Record<string, string>,
+    },
+
+    {
+      type: 'password',
+      label: 'Confirm Password',
+      control: 'confirmPassword',
+      placeholder: '••••••••',
+      errorMessage: {
+        required: 'Confirm your password',
+        passwordMismatch: 'The two passwords do not match',
+      } as Record<string, string>,
+    },
+  ];
 }

@@ -1,0 +1,19 @@
+<div class="my-4">
+  <label [for]="label" class="block text-sm mb-1 font-light text-gray-900">{{
+    label
+  }}</label>
+  <input
+    class="bg-gray-50 border-[0.5px] text-black sm:text-sm rounded-lg block w-full p-2.5 focus:outline-blue-500 aria-[invalid=true]:focus:outline-[#d50000] aria-[invalid=true]:border-[#d50000] aria-[invalid=true]:border-2"
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="control!"
+    [attr.aria-invalid]="hasError"
+  />
+
+  <p
+    *ngIf="hasError && errorType && errorMessage[errorType]"
+    class="text-red-500 text-xs"
+  >
+    {{ errorMessage[errorType] }}
+  </p>
+</div>

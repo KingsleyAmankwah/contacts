@@ -16,55 +16,21 @@
           [formGroup]="loginForm"
           (ngSubmit)="onSubmit()"
         >
-          <div>
-            <label
-              for="email"
-              class="block mb-2 text-sm font-light text-gray-900"
-              >Your email</label
-            >
-            <input
-              type="email"
-              class="bg-gray-50 border-[0.5px] text-black sm:text-sm rounded-lg block w-full p-2.5 focus:border-blue-500 focus:outline-none"
-              placeholder="name@company.com"
-              formControlName="email"
-            />
+          @for (input of inputs; track $index) {
+          <app-custom-input
+            [type]="input.type"
+            [label]="input.label"
+            [placeholder]="input.placeholder"
+            [errorMessage]="input.errorMessage"
+            [control]="formControlName(input.control)"
+          />
+          }
 
-            <p
-              *ngIf="email?.invalid && email?.touched"
-              class="text-red-500 text-xs"
-            >
-              {{ email?.errors?.['required'] ? 'Email is required' : '' }}
-              {{ email?.errors?.['email'] ? 'Invalid email format' : '' }}
-            </p>
-          </div>
-          <div>
-            <label
-              for="password"
-              class="block mb-2 text-sm font-light text-gray-900"
-              >Password</label
-            >
-            <input
-              type="password"
-              placeholder="••••••••"
-              class="bg-gray-50 border-[0.5px] text-black sm:text-sm rounded-lg block w-full p-2.5 focus:border-blue-500 focus:outline-none"
-              formControlName="password"
-            />
-
-            <p
-              *ngIf="password?.invalid && password?.touched"
-              class="text-red-500 text-xs"
-            >
-              {{ password?.errors?.['required'] ? 'Password is required' : '' }}
-            </p>
-          </div>
-
-          <button
-            type="submit"
-            class="w-full text-white disabled:cursor-not-allowed disabled:bg-blue-300 disabled:hover:bg-blue-300 bg-primary-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800"
+          <app-custom-button
+            [type]="'submit'"
             [disabled]="loginForm.invalid || isLoading"
-          >
-            {{ isLoading ? "Loading..." : "Sign In" }}
-          </button>
+            [text]="isLoading ? 'Loading...' : 'Sign In'"
+          />
           <p class="text-sm font-light text-gray-500 dark:text-gray-400">
             Don't have an account?
             <a

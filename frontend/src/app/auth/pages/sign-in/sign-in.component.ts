@@ -1,19 +1,27 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
-  FormGroup,
+  FormControl,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { SignInData } from '../../Interface';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { CustomInputComponent } from '../../layout/custom-input/custom-input.component';
+import { CustomButtonComponent } from "../../layout/custom-button/custom-button.component";
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    CommonModule,
+    CustomInputComponent,
+    CustomButtonComponent
+],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css',
 })
@@ -24,20 +32,23 @@ export class SignInComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private toast: ToastrService,
-    private router: Router
+    private toast: ToastrService
   ) {}
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.email,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      ],
+    ],
     password: ['', [Validators.required]],
   });
 
-  get email() {
-    return this.loginForm.get('email');
-  }
-  get password() {
-    return this.loginForm.get('password');
+  formControlName(name: string) {
+    return this.loginForm.get(name) as FormControl;
   }
 
   onSubmit() {
@@ -62,4 +73,28 @@ export class SignInComponent {
       });
     }
   }
+
+  inputs = [
+    {
+      type: 'email',
+      label: 'Email',
+      control: 'email',
+      placeholder: 'Enter your email address',
+      errorMessage: {
+        required: 'Email is required',
+        email: 'Invalid email address',
+        pattern: 'Invalid email address',
+      } as Record<string, string>,
+    },
+
+    {
+      type: 'password',
+      label: 'Password',
+      control: 'password',
+      placeholder: '••••••••',
+      errorMessage: {
+        required: 'Password is required',
+      } as Record<string, string>,
+    },
+  ];
 }
